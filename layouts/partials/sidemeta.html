@@ -1,0 +1,81 @@
+{{ $list := ($.Site.GetPage "taxonomyTerm" "categories").Pages }}
+{{ partial "search.html" (dict "ID" "sidemeta") }}
+
+
+{{ with .Site.Params.lastfmUsername }}
+  {{ if ne . "" }}
+  <a class="no-under" href="https://last.fm/user/{{ . }}" target="_blank">
+    <h2 class="mt-4">Listening <i class="fa-solid fa-xs fa-square-up-right"></i></h2>
+  </a>
+    
+  <div class="card">
+    <div class="album-info">
+      <img src="{{ "img/note.png" | relURL }}" alt="Album Art" class="album-art" id="last-fm-art-side">
+      <div class="spinner-overlay" id="spinner-overlay-side">
+        <div class="spinner"></div>
+      </div>
+      <div class="card-body text-center p-2">
+        <h3 id="last-fm-title-side"></h3>
+        <p id="last-fm-artist-side" class="text-muted mb-0"></p>
+      </div>
+    </div>
+  </div>
+  {{ end }}
+{{ end }}
+
+{{- if .Site.Params.showCurrentlyReading -}}
+{{ $books := .Site.Data.bookshelves.currentlyreading }}
+
+{{ if gt (len $books) 0 }}
+<a class="no-under" href="https://micro.blog/books/{{ index $books 0 "isbn" }}" target="_blank">
+  <h2 class="mt-4">Reading <i class="fa-solid fa-xs fa-square-up-right"></i></h2>
+</a>
+<div class="pl-0 card">
+  <div class="album-info">
+    <img src="{{ index $books 0 "cover_url" }}" alt="Book Art" class="book-art">
+    <div class="card-body text-center p-2">
+      <h2>{{ index $books 0 "title" }}</h2>
+      <p class="text-muted mb-0">{{ index $books 0 "author" }}</p>
+    </div>
+  </div>
+</div>
+{{ end }}
+{{ end }}
+
+{{- if .Site.Params.categoriesInSidebar -}}
+{{ if gt (len $list) 0 }}
+<div class="archive_categories mt-4 mb-4">
+  <h1>Categories</h1>
+  <div class="mb-2 d-flex flex-wrap">
+    {{ range $list }}
+    <h1>
+      <a href="{{ .Permalink }}">
+        <span class="badge badge-primary">{{ .Title }}</span>
+      </a>
+    </h1>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
+{{ end }}
+
+{{- if .Site.Params.archivesInSidebar -}}
+{{ $list := (where .Site.Pages "Type" "post") }}
+{{ $years := slice }}
+
+{{ range $list }}
+    {{ $year := .Date.Format "2006" }}
+    {{ if not (in $years $year) }}
+        {{ $years = $years | append $year }}
+    {{ end }}
+{{ end }}
+
+<div class="archive_years mb-4">
+  <h1>Archives</h1>
+  <ul class="list-group">
+  {{ range $index, $year := sort $years }}
+    <a href="/archive#{{ $year }}" class="list-group-item list-group-item-action">{{ $year }}</a>
+  {{ end }}
+  </ul>
+</div>
+{{ end }}
