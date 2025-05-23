@@ -79,3 +79,24 @@
 </a>
 {{ end }}
 {{ end }}
+
+{{ with .Site.Params.linkedinUsername }}
+{{ if ne . "" }}
+<a class="icon-link" href="https://linkedin.com/in/{{ . }}" target="_blank">
+    <i class="fa-brands fa-linkedin fa-xl" style="width: 19px;"></i>
+</a>
+{{ end }}
+{{ end }}
+
+{{ with .Site.Params.mastodonProfileUrl }}
+{{ if ne . "" }}
+<a class="icon-link" href="{{ . }}" target="_blank">
+    <i class="fa-brands fa-mastodon fa-xl" style="width: 19px;"></i>
+</a>
+{{ end }}
+{{ end }}
+
+<a class="icon-link" href="{{ .Site.BaseURL }}rss" target="_blank">
+    <i class="fa-solid fa-rss"></i>
+</a>
+
