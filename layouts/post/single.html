@@ -29,7 +29,7 @@
         {{ end }}
       </p>
       {{ if .Site.Params.showCrossPostsPermalink }}
-      {{ if or .Params.bluesky .Params.mastodon .Params.pixelfed .Params.threads .Params.tumblr }}
+      {{ if or .Params.bluesky .Params.mastodon .Params.pixelfed .Params.threads .Params.tumblr .Params.linkedin}}
       <p class="crosspost-locations mb-2">
         <i class="fa-solid fa-share-nodes"></i>
         {{ if .Params.bluesky }}
@@ -55,6 +55,11 @@
         {{ if .Params.tumblr }}
         <a {{ printf "href=%q" (printf "https://%s/%s" .Params.tumblr.hostname (string .Params.tumblr.id)) | safeHTMLAttr }} target="_blank" class="btn btn-primary btn-sm btn-xs no-under">
           Tumblr
+        </a>
+        {{ end }}
+        {{ if .Params.linkedin }}
+        <a {{ printf "href=%q" (printf "https://linkedin.com/feed/update/%s" .Params.linkedin.activity) | safeHTMLAttr }} target="_blank" class="btn btn-primary btn-sm btn-xs no-under">
+          LinkedIn
         </a>
         {{ end }}
       </p>
