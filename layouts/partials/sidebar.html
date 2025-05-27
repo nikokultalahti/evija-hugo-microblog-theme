@@ -8,11 +8,14 @@
     </a>
 </div>
 
-{{- if .Site.Params.showTagline -}}
 <div class="p-2">
+    {{ if .Site.Params.showTagline }}
     <h2 class="mb-0">{{ .Site.Params.tagline }}</h2>
+    {{ else }}
+    <h2 class="mb-0">{{ .Site.Params.itunes_description }}</h2>
+    {{ end }}
 </div>
-{{- end -}}
+
 
 <div class="p-2 d-flex justify-content-start flex-wrap social-icons">
     {{ partial "social-icons.html" . }}
