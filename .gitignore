@@ -8,7 +8,3 @@ public
 # Exclude content for local testing
 content
 data
-
-# Exclude default micro.blog files (that are used automatically, but are handly to have locally for testing and development)
-custom.css
-data
